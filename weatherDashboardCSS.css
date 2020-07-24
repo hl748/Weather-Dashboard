@@ -1,0 +1,24 @@
+#citySearch {
+    width: 500px;
+}
+
+#date1, #date2, #date3, #date4, #date5 {
+    text-align: center;
+}
+
+#five-Day-Forecast {
+    margin-left: 130px;
+    font-weight: bold;
+}
+
+#searchBar {
+    margin-left: 220px;
+}
+
+#currentConditions {
+    margin-left: 130px;
+}
+
+
+
+

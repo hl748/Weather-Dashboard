@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="weatherDashboardCSS.css">
+  </head>
+<body>
+  <div class="container">
+    <div id="searchBar" class="card bg-secondary" style="width: 40rem;">
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <h6>Search for a city</h6>
+            <input type="search" id="citySearch" aria-describedby="citySearch">
+            <button type="submit" id="submitButton" form="form1" value="Submit">Search <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+              <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+            </svg></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="currentConditions">
+        <h2 id="city"></h2>
+        <h6 id="temperature"></h6>
+        <h6 id="humidity"></h6>
+        <h6 id="wind-speed"></h6>
+        <h6 id="uv-index"></h6>
+        <img id="iconSpot" src="#">
+    </div>
+      <div id="five-Day-Forecast">5-Day Forecast:
+        <div class="row">
+        <div class="card bg-info" id="card1" style="width: 10rem; margin: 5px;">
+          <h3 id="date1"></h3>
+          <img id="img1" src="#" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p id="temp1" class="card-text"></p>
+            <p id="hum1" class="card-text"></p>
+          </div>
+        </div>
+        <div class="card bg-info" id="card2" style="width: 10rem; margin: 5px;">
+          <h3 id="date2"></h3>
+          <img id="img2" src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p id="temp2" class="card-text"></p>
+            <p id="hum2" class="card-text"></p>
+          </div>
+        </div>
+        <div class="card bg-info" id="card3" style="width: 10rem; margin: 5px;">
+          <h3 id="date3"></h3>
+          <img id="img3" src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p id="temp3" class="card-text"></p>
+            <p id="hum3" class="card-text"></p>
+          </div>
+        </div>
+        <div class="card bg-info" id="card4" style="width: 10rem; margin: 5px;">
+          <h3 id="date4"></h3>
+          <img id="img4" src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p id="temp4" class="card-text"></p>
+            <p id="hum4" class="card-text"></p>
+          </div>
+        </div>
+        <div class="card bg-info" id="card5" style="width: 10rem; margin: 5px;">
+          <h3 id="date5"></h3>
+          <img id="img5" src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p id="temp5" class="card-text"></p>
+            <p id="hum5" class="card-text"></p>
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      <script type="text/javascript">
+
+      $(document).ready(function() {
+        var refresh = JSON.parse(localStorage.getItem("savedConditions"))
+        console.log(refresh)
+        $("#city").text(refresh.city)
+        $("#temperature").text(refresh.temp)
+        $("#humidity").text(refresh.hum)
+        $("#wind-speed").text(refresh.wind)
+        $("#uv-index").text(refresh.uvi)
+        $("#iconSpot").attr("src",refresh.icon)
+        $("#temp1").text(refresh.temp1)
+        $("#hum1").text(refresh.hum1)
+        $("#img1").attr("src",refresh.img1)
+        $("#temp2").text(refresh.temp2)
+        $("#hum2").text(refresh.hum2)
+        $("#img2").attr("src",refresh.img2)
+        $("#temp3").text(refresh.temp3)
+        $("#hum3").text(refresh.hum3)
+        $("#img3").attr("src",refresh.img3)
+        $("#temp4").text(refresh.temp4)
+        $("#hum4").text(refresh.hum4)
+        $("#img4").attr("src",refresh.img4)
+        $("#temp5").text(refresh.temp5)
+        $("#hum5").text(refresh.hum5)
+        $("#img5").attr("src",refresh.img5)
+        
+        $("#submitButton").on("click", function() {
+        var cityName = $("#citySearch").val()
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=f871a027e70e3de0c87c50b616b75c14"
+        var queryURL2 = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=f871a027e70e3de0c87c50b616b75c14"
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function (response) {
+          console.log(response)
+          $("#city").empty()
+          console.log(response.name)
+          $("#city").append(response.name + " (" + new Date().getMonth() + "/" + new Date().getDate() + "/" + new Date().getFullYear() + ")")
+          document.getElementById("city")
+          $("#temperature").empty()
+          $("#temperature").text("Temperature: ")
+          console.log(response.main.temp)
+          var temperature = Math.floor(((response.main.temp)-273)*(9/5)+32)
+          $("#temperature").append(temperature + " °F")
+          $("#humidity").empty()
+          $("#humidity").text("Humidity: ")
+          console.log(response.main.humidity)
+          $("#humidity").append(response.main.humidity + "%")
+          $("#wind-speed").empty()
+          $("#wind-speed").text("Wind Speed: ")
+          console.log(response.wind.speed)
+          var windSpeed = (response.wind.speed) * 2.237
+          $("#wind-speed").append(response.wind.speed + " mph")
+          console.log(response.weather[0].icon)
+          var currentImage =  response.weather[0].icon
+          // $("<img>").css("id","icon")
+          // document.getElementById("icon").src = 
+          document.getElementById("iconSpot").src = "http://openweathermap.org/img/w/" + currentImage + ".png"
+          console.log(response.coord.lat)
+          console.log(response.coord.lon)
+          var queryURL1 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&exclude=hourly,daily&appid=f871a027e70e3de0c87c50b616b75c14"
+          $.ajax({
+           url: queryURL1,
+           method: "GET"
+           }).then(function (response) {
+          $("#uv-index").empty()
+          $("#uv-index").text("UV Index: ")
+          console.log(response.current.uvi)
+          $("#uv-index").append(response.current.uvi)
+          if (response.current.uvi > 0 && response.current.uvi < 3) {
+            $("#uv-index").css("background-color","green")
+          }
+          else if (response.current.uvi > 3 && response.current.uvi < 7) {
+            $("#uv-index").css("background-color","orange")
+          }
+          else if (response.current.uvi > 7) {
+            $("#uv-index").css("background-color","red")
+          }
+          var city = $("#city").text()
+           var temp = $("#temperature").text()
+           var hum = $("#humidity").text()
+           var wind = $("#wind-speed").text()
+           var uvi = $("#uv-index").text()
+           var icon = $("#iconSpot").attr("src")
+           var temp1 = $("#temp1").text()
+           var hum1 = $("#hum1").text()
+           var img1 = $("#img1").attr("src")
+           var temp2 = $("#temp2").text()
+           var hum2 = $("#hum2").text()
+           var img2 = $("#img2").attr("src")
+           var temp3 = $("#temp3").text()
+           var hum3 = $("#hum3").text()
+           var img3 = $("#img3").attr("src")
+           var temp4 = $("#temp4").text()
+           var hum4 = $("#hum4").text()
+           var img4 = $("#img4").attr("src")
+           var temp5 = $("#temp5").text()
+           var hum5 = $("#hum5").text()
+           var img5 = $("#img5").attr("src")
+           var saved = {city: city, temp: temp, hum: hum, wind: wind,
+           uvi: uvi, icon: icon, temp1: temp1, hum1: hum1, img1: img1, 
+           temp2: temp2, hum2: hum2, img2: img2, temp3: temp3, hum3: hum3, img3: img3,
+           temp4: temp4, hum4: hum4, img4: img4, temp5: temp5, hum5: hum5, img5: img5}
+           localStorage.setItem("savedConditions",JSON.stringify(saved))
+         })
+
+        })
+         
+         $.ajax({
+           url: queryURL2,
+           method: "GET"
+         }).then(function (response) {
+            console.log(response.list[8].main.temp)
+            var today = new Date()
+            today.setDate(today.getDate() + 1)
+            $("#date1").text(today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear())
+            var image1 = (response.list[7].weather[0].icon)
+           document.getElementById("img1").src = "http://openweathermap.org/img/w/" + image1 + ".png"
+           var temperature1 = Math.floor(((response.list[7].main.temp)-273)*(9/5)+32)
+           $("#temp1").text("Temp: " + temperature1 + " °F")
+      
+           $("#hum1").text("Humidity: " + response.list[7].main.humidity + "%")
+           today.setDate(today.getDate() + 1)
+           $("#date2").text(today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear())
+           var image2 = (response.list[15].weather[0].icon)
+           document.getElementById("img2").src = "http://openweathermap.org/img/w/" + image2 + ".png"
+           var temperature2 = Math.floor(((response.list[15].main.temp)-273)*(9/5)+32)
+           $("#temp2").text("Temp: " + temperature2 + " °F")
+           $("#hum2").text("Humidity: " + response.list[15].main.humidity + "%")
+           today.setDate(today.getDate() + 1)
+           $("#date3").text(today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear())
+           var image3 = (response.list[23].weather[0].icon)
+           document.getElementById("img3").src = "http://openweathermap.org/img/w/" + image3 + ".png"
+           var temperature3 = Math.floor(((response.list[23].main.temp)-273)*(9/5)+32)
+           $("#temp3").text("Temp: " + temperature3 + " °F")
+           $("#hum3").text("Humidity: " + response.list[23].main.humidity + "%")
+           today.setDate(today.getDate() + 1)
+           $("#date4").text(today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear())
+           var image4 = (response.list[31].weather[0].icon)
+           document.getElementById("img4").src = "http://openweathermap.org/img/w/" + image4 + ".png"
+           var temperature4 = Math.floor(((response.list[31].main.temp)-273)*(9/5)+32)
+           $("#temp4").text("Temp: " + temperature4 + " °F")
+           $("#hum4").text("Humidity: " + response.list[31].main.humidity + "%")
+           today.setDate(today.getDate() + 1)
+           $("#date5").text(today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear())
+           var image5 = (response.list[39].weather[0].icon)
+           document.getElementById("img5").src = "http://openweathermap.org/img/w/" + image5 + ".png"
+           var temperature5 = Math.floor(((response.list[39].main.temp)-273)*(9/5)+32)
+           $("#temp5").text("Temp: " + temperature5 + " °F")
+           $("#hum5").text("Humidity: " + response.list[39].main.humidity + "%")
+           
+
+         })
+         
+        })
+      })
+
+
+      </script>
+</body>
+</html>
