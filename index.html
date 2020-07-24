@@ -83,6 +83,7 @@
       $(document).ready(function() {
         var refresh = JSON.parse(localStorage.getItem("savedConditions"))
         console.log(refresh)
+        if (refresh){
         $("#city").text(refresh.city)
         $("#temperature").text(refresh.temp)
         $("#humidity").text(refresh.hum)
@@ -104,6 +105,7 @@
         $("#temp5").text(refresh.temp5)
         $("#hum5").text(refresh.hum5)
         $("#img5").attr("src",refresh.img5)
+        }
         
         $("#submitButton").on("click", function() {
         var cityName = $("#citySearch").val()
