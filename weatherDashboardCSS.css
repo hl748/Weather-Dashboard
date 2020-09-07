@@ -13,6 +13,7 @@
 
 #searchBar {
     margin-left: 220px;
+    box-shadow: 2px 2px gray;
 }
 
 #currentConditions {
@@ -30,6 +31,16 @@
 
 .form-group {
   text-align: center;
+}
+
+body {
+  background-color: lightblue;
+}
+
+#footer {
+  text-align: center;
+  font-weight: bold;
+  color: gray;
 }
 
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
