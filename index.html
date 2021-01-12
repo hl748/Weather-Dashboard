@@ -155,13 +155,13 @@
           console.log(response.current.uvi)
           $("#uv-index").append(response.current.uvi)
           if (response.current.uvi > 0 && response.current.uvi < 3) {
-            $("#uv-index").css("background-color","light-green")
+            $("#uv-index").css("background-color","lightgreen")
           }
           else if (response.current.uvi > 3 && response.current.uvi < 7) {
-            $("#uv-index").css("background-color","light-yellow")
+            $("#uv-index").css("background-color","lightyellow")
           }
           else if (response.current.uvi > 7) {
-            $("#uv-index").css("background-color","light-red")
+            $("#uv-index").css("background-color","lightred")
           }
           var city = $("#city").text()
            var temp = $("#temperature").text()
