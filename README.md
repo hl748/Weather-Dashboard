@@ -14,23 +14,6 @@ What things you need to install the software and how to install them
 None
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-1) Clone the repository
-
-```
-Copy the url from the repository and run git clone.
-```
-
-2) Open "index.html" in the default browser
-
-```
-Left-click on the "index.html" file
-```
-
-Enter your city name into the search bar and get your local weather.
 
 ## Running the tests
 
