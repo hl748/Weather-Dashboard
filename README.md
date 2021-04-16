@@ -1,6 +1,6 @@
 # Weather Dashboard https://hl748.github.io/Weather-Dashboard/
 
-A weather dashboard created with dynamically updated HTML and CSS
+A user-centric weather dashboard with realtime weather information specific to user's locale. The weather conditions are updated with Asynchronous JavaScript and XML calls to a third-party API and updated with jQuery. Color coded UV Index.
 
 ## Getting Started
 
