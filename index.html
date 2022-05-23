@@ -17,7 +17,7 @@
         <form>
           <div class="form-group">
             <h6 id="searchLabel">Search for a city name</h6>
-            <input type="text" placeholder="eg. Atlanta" onkeydown="event" id="citySearch"
+            <input type="text" placeholder="Only enter the city name. No state And Country name." onkeydown="event" id="citySearch"
               aria-describedby="citySearch">
             <button type="submit" id="submitButton" form="form1" value="Submit">Search <svg width="1em" height="1em"
                 viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -30,6 +30,7 @@
         </form>
       </div>
     </div>
+    
     <div id="currentConditions" class="col-12">
 
       <h2 id="city"></h2>
@@ -110,7 +111,7 @@ $(document).ready(function() {
 					url: d,
 					method: "GET"
 				}).then(function(a) {
-					$("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css("background-color", "green") : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css("background-color", "orange") : 7 < a.current.uvi && $("#uv-index").css("background-color", "red");
+					$("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css("background-color", "green") : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css({"background-color": "lightblue"}) : 7 < a.current.uvi && $("#uv-index").css("background-color", "red");
 					var b = $("#city").text(),
 						c = $("#temperature").text(),
 						d = $("#humidity").text(),
@@ -203,8 +204,10 @@ $(document).ready(function() {
 				url: d,
 				method: "GET"
 			}).then(function(a) {
-				$("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css({"background-color": "green","width":"10%"}) : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css({"background-color": "blue", "width": "10%"}) : 7 < a.current.uvi && $("#uv-index").css({"background-color": "red", "width": "10%"});
-				var b = $("#city").text(),
+				$("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css({"background-color": "green","width":"72%", "padding":"10px"}) : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css({"background-color": "#1080FF", "width": "72%", "padding":"10px"}) : 7 < a.current.uvi && $("#uv-index").css({"background-color": "red", "width": "72%", "padding":"10px"});
+
+        
+        var b = $("#city").text(),
 					c = $("#temperature").text(),
 					d = $("#humidity").text(),
 					e = $("#wind-speed").text(),

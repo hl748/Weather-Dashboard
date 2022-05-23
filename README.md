@@ -5,7 +5,8 @@ A user-centric weather dashboard with realtime weather information specific to u
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
+# Instructions:
+Only enter the city name. No state name. No Country Name.
 ### Prerequisites
 
 What things you need to install the software and how to install them
