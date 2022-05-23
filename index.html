@@ -52,7 +52,7 @@
         </div>
         <div class="card bg-info" id="card2" style="width: 10rem; margin: 5px; height: 16rem;">
           <h3 id="date2"></h3>
-          <img id="img2" src="..." class="card-img-top" alt="...">
+          <img id="img2" src="" class="card-img-top" alt="...">
           <div class="card-body">
             <p id="temp2" class="card-text"></p>
             <p id="hum2" class="card-text"></p>
@@ -60,7 +60,7 @@
         </div>
         <div class="card bg-info" id="card3" style="width: 10rem; margin: 5px; height: 16rem;">
           <h3 id="date3"></h3>
-          <img id="img3" src="..." class="card-img-top" alt="...">
+          <img id="img3" src="" class="card-img-top" alt="...">
           <div class="card-body">
             <p id="temp3" class="card-text"></p>
             <p id="hum3" class="card-text"></p>
@@ -68,7 +68,7 @@
         </div>
         <div class="card bg-info" id="card4" style="width: 10rem; margin: 5px; height: 16rem;">
           <h3 id="date4"></h3>
-          <img id="img4" src="..." class="card-img-top" alt="...">
+          <img id="img4" src="" class="card-img-top" alt="...">
           <div class="card-body">
             <p id="temp4" class="card-text"></p>
             <p id="hum4" class="card-text"></p>
@@ -76,7 +76,7 @@
         </div>
         <div class="card bg-info" id="card5" style="width: 10rem; margin: 5px; height: 16rem;">
           <h3 id="date5"></h3>
-          <img id="img5" src="..." class="card-img-top" alt="...">
+          <img id="img5" src="" class="card-img-top" alt="...">
           <div class="card-body">
             <p id="temp5" class="card-text"></p>
             <p id="hum5" class="card-text"></p>
@@ -87,9 +87,198 @@
   </div>
   </div>
   <script type="text/javascript">
-
-    $(document).ready(function () { var a = JSON.parse(localStorage.getItem("savedConditions")); console.log(a), a && ($("#city").text(a.city), $("#temperature").text(a.temp), $("#humidity").text(a.hum), $("#wind-speed").text(a.wind), $("#uv-index").text(a.uvi), $("#iconSpot").attr("src", a.icon), $("#temp1").text(a.temp1), $("#hum1").text(a.hum1), $("#img1").attr("src", a.img1), $("#temp2").text(a.temp2), $("#hum2").text(a.hum2), $("#img2").attr("src", a.img2), $("#temp3").text(a.temp3), $("#hum3").text(a.hum3), $("#img3").attr("src", a.img3), $("#temp4").text(a.temp4), $("#hum4").text(a.hum4), $("#img4").attr("src", a.img4), $("#temp5").text(a.temp5), $("#hum5").text(a.hum5), $("#img5").attr("src", a.img5)), document.addEventListener("keydown", function (a) { var b = a.which; if (13 === b) { a.preventDefault(); var c = $("#citySearch").val(); $.ajax({ url: "https://api.openweathermap.org/data/2.5/weather?q=" + c + "&appid=f871a027e70e3de0c87c50b616b75c14", method: "GET" }).then(function (a) { console.log(a), $("#city").empty(), console.log(a.name), $("#city").append(a.name + " (" + (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + ")"), document.getElementById("city"), $("#temperature").empty(), $("#temperature").text("Current Temperature: "), console.log(a.main.temp); var b = Math.floor((a.main.temp - 273) * (9 / 5) + 32); $("#temperature").append(b + " \xB0F"), $("#humidity").empty(), $("#humidity").text("Humidity: "), console.log(a.main.humidity), $("#humidity").append(a.main.humidity + "%"), $("#wind-speed").empty(), $("#wind-speed").text("Wind Speed: "), console.log(a.wind.speed); 2.237 * a.wind.speed; $("#wind-speed").append(a.wind.speed + " mph"), console.log(a.weather[0].icon); var c = a.weather[0].icon; document.getElementById("iconSpot").src = "http://openweathermap.org/img/w/" + c + ".png", console.log(a.coord.lat), console.log(a.coord.lon); var d = "https://api.openweathermap.org/data/2.5/onecall?lat=" + a.coord.lat + "&lon=" + a.coord.lon + "&exclude=hourly,daily&appid=f871a027e70e3de0c87c50b616b75c14"; $.ajax({ url: d, method: "GET" }).then(function (a) { $("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css("background-color", "green") && $("#uv-index").css("width", "50") : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css("background-color", "orange") : 7 < a.current.uvi && $("#uv-index").css("background-color", "red"); var b = $("#city").text(), c = $("#temperature").text(), d = $("#humidity").text(), e = $("#wind-speed").text(), f = $("#uv-index").text(), g = $("#iconSpot").attr("src"), h = $("#temp1").text(), i = $("#hum1").text(), j = $("#img1").attr("src"), k = $("#temp2").text(), l = $("#hum2").text(), m = $("#img2").attr("src"), n = $("#temp3").text(), o = $("#hum3").text(), p = $("#img3").attr("src"), q = $("#temp4").text(), r = $("#hum4").text(), s = $("#img4").attr("src"), t = $("#temp5").text(), u = $("#hum5").text(), v = $("#img5").attr("src"); localStorage.setItem("savedConditions", JSON.stringify({ city: b, temp: c, hum: d, wind: e, uvi: f, icon: g, temp1: h, hum1: i, img1: j, temp2: k, hum2: l, img2: m, temp3: n, hum3: o, img3: p, temp4: q, hum4: r, img4: s, temp5: t, hum5: u, img5: v })) }) }), $.ajax({ url: "https://api.openweathermap.org/data/2.5/forecast?q=" + c + "&appid=f871a027e70e3de0c87c50b616b75c14", method: "GET" }).then(function (a) { console.log(a.list[8].main.temp); var b = new Date; b.setDate(b.getDate() + 1), $("#date1").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var c = a.list[7].weather[0].icon; document.getElementById("img1").src = "http://openweathermap.org/img/w/" + c + ".png"; var d = Math.floor((a.list[7].main.temp - 273) * (9 / 5) + 32); $("#temp1").text("Temp: " + d + " \xB0F"), $("#hum1").text("Humidity: " + a.list[7].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date2").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var e = a.list[15].weather[0].icon; document.getElementById("img2").src = "http://openweathermap.org/img/w/" + e + ".png"; var f = Math.floor((a.list[15].main.temp - 273) * (9 / 5) + 32); $("#temp2").text("Temp: " + f + " \xB0F"), $("#hum2").text("Humidity: " + a.list[15].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date3").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var g = a.list[23].weather[0].icon; document.getElementById("img3").src = "http://openweathermap.org/img/w/" + g + ".png"; var h = Math.floor((a.list[23].main.temp - 273) * (9 / 5) + 32); $("#temp3").text("Temp: " + h + " \xB0F"), $("#hum3").text("Humidity: " + a.list[23].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date4").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var i = a.list[31].weather[0].icon; document.getElementById("img4").src = "http://openweathermap.org/img/w/" + i + ".png"; var j = Math.floor((a.list[31].main.temp - 273) * (9 / 5) + 32); $("#temp4").text("Temp: " + j + " \xB0F"), $("#hum4").text("Humidity: " + a.list[31].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date5").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var k = a.list[39].weather[0].icon; document.getElementById("img5").src = "http://openweathermap.org/img/w/" + k + ".png"; var l = Math.floor((a.list[39].main.temp - 273) * (9 / 5) + 32); $("#temp5").text("Temp: " + l + " \xB0F"), $("#hum5").text("Humidity: " + a.list[39].main.humidity + "%") }) } }), $("#submitButton").on("click", function () { var a = $("#citySearch").val(); $.ajax({ url: "https://api.openweathermap.org/data/2.5/weather?q=" + a + "&appid=f871a027e70e3de0c87c50b616b75c14", method: "GET" }).then(function (a) { console.log(a), $("#city").empty(), console.log(a.name), $("#city").append(a.name + " (" + (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + ")"), document.getElementById("city"), $("#temperature").empty(), $("#temperature").text("Current Temperature: "), console.log(a.main.temp); var b = Math.floor((a.main.temp - 273) * (9 / 5) + 32); $("#temperature").append(b + " \xB0F"), $("#humidity").empty(), $("#humidity").text("Humidity: "), console.log(a.main.humidity), $("#humidity").append(a.main.humidity + "%"), $("#wind-speed").empty(), $("#wind-speed").text("Wind Speed: "), console.log(a.wind.speed); 2.237 * a.wind.speed; $("#wind-speed").append(a.wind.speed + " mph"), console.log(a.weather[0].icon); var c = a.weather[0].icon; document.getElementById("iconSpot").src = "http://openweathermap.org/img/w/" + c + ".png", console.log(a.coord.lat), console.log(a.coord.lon); var d = "https://api.openweathermap.org/data/2.5/onecall?lat=" + a.coord.lat + "&lon=" + a.coord.lon + "&exclude=hourly,daily&appid=f871a027e70e3de0c87c50b616b75c14"; $.ajax({ url: d, method: "GET" }).then(function (a) { $("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css("background-color", "green") : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css("background-color", "orange") : 7 < a.current.uvi && $("#uv-index").css("background-color", "red"); var b = $("#city").text(), c = $("#temperature").text(), d = $("#humidity").text(), e = $("#wind-speed").text(), f = $("#uv-index").text(), g = $("#iconSpot").attr("src"), h = $("#temp1").text(), i = $("#hum1").text(), j = $("#img1").attr("src"), k = $("#temp2").text(), l = $("#hum2").text(), m = $("#img2").attr("src"), n = $("#temp3").text(), o = $("#hum3").text(), p = $("#img3").attr("src"), q = $("#temp4").text(), r = $("#hum4").text(), s = $("#img4").attr("src"), t = $("#temp5").text(), u = $("#hum5").text(), v = $("#img5").attr("src"); localStorage.setItem("savedConditions", JSON.stringify({ city: b, temp: c, hum: d, wind: e, uvi: f, icon: g, temp1: h, hum1: i, img1: j, temp2: k, hum2: l, img2: m, temp3: n, hum3: o, img3: p, temp4: q, hum4: r, img4: s, temp5: t, hum5: u, img5: v })) }) }), $.ajax({ url: "https://api.openweathermap.org/data/2.5/forecast?q=" + a + "&appid=f871a027e70e3de0c87c50b616b75c14", method: "GET" }).then(function (a) { console.log(a.list[8].main.temp); var b = new Date; b.setDate(b.getDate() + 1), $("#date1").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var c = a.list[7].weather[0].icon; document.getElementById("img1").src = "http://openweathermap.org/img/w/" + c + ".png"; var d = Math.floor((a.list[7].main.temp - 273) * (9 / 5) + 32); $("#temp1").text("Temp: " + d + " \xB0F"), $("#hum1").text("Humidity: " + a.list[7].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date2").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var e = a.list[15].weather[0].icon; document.getElementById("img2").src = "http://openweathermap.org/img/w/" + e + ".png"; var f = Math.floor((a.list[15].main.temp - 273) * (9 / 5) + 32); $("#temp2").text("Temp: " + f + " \xB0F"), $("#hum2").text("Humidity: " + a.list[15].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date3").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var g = a.list[23].weather[0].icon; document.getElementById("img3").src = "http://openweathermap.org/img/w/" + g + ".png"; var h = Math.floor((a.list[23].main.temp - 273) * (9 / 5) + 32); $("#temp3").text("Temp: " + h + " \xB0F"), $("#hum3").text("Humidity: " + a.list[23].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date4").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var i = a.list[31].weather[0].icon; document.getElementById("img4").src = "http://openweathermap.org/img/w/" + i + ".png"; var j = Math.floor((a.list[31].main.temp - 273) * (9 / 5) + 32); $("#temp4").text("Temp: " + j + " \xB0F"), $("#hum4").text("Humidity: " + a.list[31].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date5").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear()); var k = a.list[39].weather[0].icon; document.getElementById("img5").src = "http://openweathermap.org/img/w/" + k + ".png"; var l = Math.floor((a.list[39].main.temp - 273) * (9 / 5) + 32); $("#temp5").text("Temp: " + l + " \xB0F"), $("#hum5").text("Humidity: " + a.list[39].main.humidity + "%") }) }) });
-
+$(document).ready(function() {
+	var a = JSON.parse(localStorage.getItem("savedConditions"));
+	console.log(a), a && ($("#city").text(a.city), $("#temperature").text(a.temp), $("#humidity").text(a.hum), $("#wind-speed").text(a.wind), $("#uv-index").text(a.uvi), $("#iconSpot").attr("src", a.icon), $("#temp1").text(a.temp1), $("#hum1").text(a.hum1), $("#img1").attr("src", a.img1), $("#temp2").text(a.temp2), $("#hum2").text(a.hum2), $("#img2").attr("src", a.img2), $("#temp3").text(a.temp3), $("#hum3").text(a.hum3), $("#img3").attr("src", a.img3), $("#temp4").text(a.temp4), $("#hum4").text(a.hum4), $("#img4").attr("src", a.img4), $("#temp5").text(a.temp5), $("#hum5").text(a.hum5), $("#img5").attr("src", a.img5)), document.addEventListener("keydown", function(a) {
+		var b = a.which;
+		if(13 === b) {
+			a.preventDefault();
+			var c = $("#citySearch").val();
+			$.ajax({
+				url: "https://api.openweathermap.org/data/2.5/weather?q=" + c + "&appid=f871a027e70e3de0c87c50b616b75c14",
+				method: "GET"
+			}).then(function(a) {
+				console.log(a), $("#city").empty(), console.log(a.name), $("#city").append(a.name + " (" + (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + ")"), document.getElementById("city"), $("#temperature").empty(), $("#temperature").text("Current Temperature: "), console.log(a.main.temp);
+				var b = Math.floor((a.main.temp - 273) * (9 / 5) + 32);
+				$("#temperature").append(b + " \xB0F"), $("#humidity").empty(), $("#humidity").text("Humidity: "), console.log(a.main.humidity), $("#humidity").append(a.main.humidity + "%"), $("#wind-speed").empty(), $("#wind-speed").text("Wind Speed: "), console.log(a.wind.speed);
+				2.237 * a.wind.speed;
+				$("#wind-speed").append(a.wind.speed + " mph"), console.log(a.weather[0].icon);
+				var c = a.weather[0].icon;
+				document.getElementById("iconSpot").src = "http://openweathermap.org/img/w/" + c + ".png", console.log(a.coord.lat), console.log(a.coord.lon);
+				var d = "https://api.openweathermap.org/data/2.5/onecall?lat=" + a.coord.lat + "&lon=" + a.coord.lon + "&exclude=hourly,daily&appid=f871a027e70e3de0c87c50b616b75c14";
+				$.ajax({
+					url: d,
+					method: "GET"
+				}).then(function(a) {
+					$("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css("background-color", "green") : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css("background-color", "orange") : 7 < a.current.uvi && $("#uv-index").css("background-color", "red");
+					var b = $("#city").text(),
+						c = $("#temperature").text(),
+						d = $("#humidity").text(),
+						e = $("#wind-speed").text(),
+						f = $("#uv-index").text(),
+						g = $("#iconSpot").attr("src"),
+						h = $("#temp1").text(),
+						i = $("#hum1").text(),
+						j = $("#img1").attr("src"),
+						k = $("#temp2").text(),
+						l = $("#hum2").text(),
+						m = $("#img2").attr("src"),
+						n = $("#temp3").text(),
+						o = $("#hum3").text(),
+						p = $("#img3").attr("src"),
+						q = $("#temp4").text(),
+						r = $("#hum4").text(),
+						s = $("#img4").attr("src"),
+						t = $("#temp5").text(),
+						u = $("#hum5").text(),
+						v = $("#img5").attr("src");
+					localStorage.setItem("savedConditions", JSON.stringify({
+						city: b,
+						temp: c,
+						hum: d,
+						wind: e,
+						uvi: f,
+						icon: g,
+						temp1: h,
+						hum1: i,
+						img1: j,
+						temp2: k,
+						hum2: l,
+						img2: m,
+						temp3: n,
+						hum3: o,
+						img3: p,
+						temp4: q,
+						hum4: r,
+						img4: s,
+						temp5: t,
+						hum5: u,
+						img5: v
+					}))
+				})
+			}), $.ajax({
+				url: "https://api.openweathermap.org/data/2.5/forecast?q=" + c + "&appid=f871a027e70e3de0c87c50b616b75c14",
+				method: "GET"
+			}).then(function(a) {
+				console.log(a.list[8].main.temp);
+				var b = new Date;
+				b.setDate(b.getDate() + 1), $("#date1").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+				var c = a.list[7].weather[0].icon;
+				document.getElementById("img1").src = "http://openweathermap.org/img/w/" + c + ".png";
+				var d = Math.floor((a.list[7].main.temp - 273) * (9 / 5) + 32);
+				$("#temp1").text("Temp: " + d + " \xB0F"), $("#hum1").text("Humidity: " + a.list[7].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date2").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+				var e = a.list[15].weather[0].icon;
+				document.getElementById("img2").src = "http://openweathermap.org/img/w/" + e + ".png";
+				var f = Math.floor((a.list[15].main.temp - 273) * (9 / 5) + 32);
+				$("#temp2").text("Temp: " + f + " \xB0F"), $("#hum2").text("Humidity: " + a.list[15].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date3").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+				var g = a.list[23].weather[0].icon;
+				document.getElementById("img3").src = "http://openweathermap.org/img/w/" + g + ".png";
+				var h = Math.floor((a.list[23].main.temp - 273) * (9 / 5) + 32);
+				$("#temp3").text("Temp: " + h + " \xB0F"), $("#hum3").text("Humidity: " + a.list[23].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date4").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+				var i = a.list[31].weather[0].icon;
+				document.getElementById("img4").src = "http://openweathermap.org/img/w/" + i + ".png";
+				var j = Math.floor((a.list[31].main.temp - 273) * (9 / 5) + 32);
+				$("#temp4").text("Temp: " + j + " \xB0F"), $("#hum4").text("Humidity: " + a.list[31].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date5").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+				var k = a.list[39].weather[0].icon;
+				document.getElementById("img5").src = "http://openweathermap.org/img/w/" + k + ".png";
+				var l = Math.floor((a.list[39].main.temp - 273) * (9 / 5) + 32);
+				$("#temp5").text("Temp: " + l + " \xB0F"), $("#hum5").text("Humidity: " + a.list[39].main.humidity + "%")
+			})
+		}
+	}), $("#submitButton").on("click", function() {
+		var a = $("#citySearch").val();
+		$.ajax({
+			url: "https://api.openweathermap.org/data/2.5/weather?q=" + a + "&appid=f871a027e70e3de0c87c50b616b75c14",
+			method: "GET"
+		}).then(function(a) {
+			console.log(a), $("#city").empty(), console.log(a.name), $("#city").append(a.name + " (" + (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + ")"), document.getElementById("city"), $("#temperature").empty(), $("#temperature").text("Current Temperature: "), console.log(a.main.temp);
+			var b = Math.floor((a.main.temp - 273) * (9 / 5) + 32);
+			$("#temperature").append(b + " \xB0F"), $("#humidity").empty(), $("#humidity").text("Humidity: "), console.log(a.main.humidity), $("#humidity").append(a.main.humidity + "%"), $("#wind-speed").empty(), $("#wind-speed").text("Wind Speed: "), console.log(a.wind.speed);
+			2.237 * a.wind.speed;
+			$("#wind-speed").append(a.wind.speed + " mph"), console.log(a.weather[0].icon);
+			var c = a.weather[0].icon;
+			document.getElementById("iconSpot").src = "http://openweathermap.org/img/w/" + c + ".png", console.log(a.coord.lat), console.log(a.coord.lon);
+			var d = "https://api.openweathermap.org/data/2.5/onecall?lat=" + a.coord.lat + "&lon=" + a.coord.lon + "&exclude=hourly,daily&appid=f871a027e70e3de0c87c50b616b75c14";
+			$.ajax({
+				url: d,
+				method: "GET"
+			}).then(function(a) {
+				$("#uv-index").empty(), $("#uv-index").text("UV Index: "), console.log(a.current.uvi), $("#uv-index").append(a.current.uvi), 0 < a.current.uvi && 3 > a.current.uvi ? $("#uv-index").css({"background-color": "green","width":"26%"}) : 3 < a.current.uvi && 7 > a.current.uvi ? $("#uv-index").css({"background-color": "orange", "width": "26%"}) : 7 < a.current.uvi && $("#uv-index").css({"background-color": "red", "width": "26%"});
+				var b = $("#city").text(),
+					c = $("#temperature").text(),
+					d = $("#humidity").text(),
+					e = $("#wind-speed").text(),
+					f = $("#uv-index").text(),
+					g = $("#iconSpot").attr("src"),
+					h = $("#temp1").text(),
+					i = $("#hum1").text(),
+					j = $("#img1").attr("src"),
+					k = $("#temp2").text(),
+					l = $("#hum2").text(),
+					m = $("#img2").attr("src"),
+					n = $("#temp3").text(),
+					o = $("#hum3").text(),
+					p = $("#img3").attr("src"),
+					q = $("#temp4").text(),
+					r = $("#hum4").text(),
+					s = $("#img4").attr("src"),
+					t = $("#temp5").text(),
+					u = $("#hum5").text(),
+					v = $("#img5").attr("src");
+				localStorage.setItem("savedConditions", JSON.stringify({
+					city: b,
+					temp: c,
+					hum: d,
+					wind: e,
+					uvi: f,
+					icon: g,
+					temp1: h,
+					hum1: i,
+					img1: j,
+					temp2: k,
+					hum2: l,
+					img2: m,
+					temp3: n,
+					hum3: o,
+					img3: p,
+					temp4: q,
+					hum4: r,
+					img4: s,
+					temp5: t,
+					hum5: u,
+					img5: v
+				}))
+			})
+		}), $.ajax({
+			url: "https://api.openweathermap.org/data/2.5/forecast?q=" + a + "&appid=f871a027e70e3de0c87c50b616b75c14",
+			method: "GET"
+		}).then(function(a) {
+			console.log(a.list[8].main.temp);
+			var b = new Date;
+			b.setDate(b.getDate() + 1), $("#date1").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+			var c = a.list[7].weather[0].icon;
+			document.getElementById("img1").src = "http://openweathermap.org/img/w/" + c + ".png";
+			var d = Math.floor((a.list[7].main.temp - 273) * (9 / 5) + 32);
+			$("#temp1").text("Temp: " + d + " \xB0F"), $("#hum1").text("Humidity: " + a.list[7].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date2").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+			var e = a.list[15].weather[0].icon;
+			document.getElementById("img2").src = "http://openweathermap.org/img/w/" + e + ".png";
+			var f = Math.floor((a.list[15].main.temp - 273) * (9 / 5) + 32);
+			$("#temp2").text("Temp: " + f + " \xB0F"), $("#hum2").text("Humidity: " + a.list[15].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date3").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+			var g = a.list[23].weather[0].icon;
+			document.getElementById("img3").src = "http://openweathermap.org/img/w/" + g + ".png";
+			var h = Math.floor((a.list[23].main.temp - 273) * (9 / 5) + 32);
+			$("#temp3").text("Temp: " + h + " \xB0F"), $("#hum3").text("Humidity: " + a.list[23].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date4").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+			var i = a.list[31].weather[0].icon;
+			document.getElementById("img4").src = "http://openweathermap.org/img/w/" + i + ".png";
+			var j = Math.floor((a.list[31].main.temp - 273) * (9 / 5) + 32);
+			$("#temp4").text("Temp: " + j + " \xB0F"), $("#hum4").text("Humidity: " + a.list[31].main.humidity + "%"), b.setDate(b.getDate() + 1), $("#date5").text(b.getMonth() + 1 + "/" + b.getDate() + "/" + b.getFullYear());
+			var k = a.list[39].weather[0].icon;
+			document.getElementById("img5").src = "http://openweathermap.org/img/w/" + k + ".png";
+			var l = Math.floor((a.list[39].main.temp - 273) * (9 / 5) + 32);
+			$("#temp5").text("Temp: " + l + " \xB0F"), $("#hum5").text("Humidity: " + a.list[39].main.humidity + "%")
+		})
+	})
+});
 
   </script>
 </body>
